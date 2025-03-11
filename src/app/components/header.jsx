@@ -1,12 +1,16 @@
 "use client";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Header() {
   const session = useSession();
+  const [isSigningOut, setIsSigningOut] = useState(false);
   const handleSignOut = async (e) => {
     e.preventDefault();
+    setIsSigningOut(true);
     await signOut({ callbackUrl: "/sign-in" });
+    setIsSigningOut(false);
   };
 
   return (
@@ -22,8 +26,9 @@ export default function Header() {
               type="button"
               className="cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               onClick={handleSignOut}
+              disabled={isSigningOut}
             >
-              Log out
+              {isSigningOut ? "Signing out..." : "Log out"}
             </button>
           </div>
         )}
