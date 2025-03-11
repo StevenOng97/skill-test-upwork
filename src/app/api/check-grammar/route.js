@@ -1,9 +1,18 @@
 import { NextResponse } from "next/server";
 import { GENERAL_MESSAGES } from "@/app/constants";
 import { openai } from "@/app/lib/openai";
+import { getServerSession } from "next-auth";
 
 export async function POST(request) {
   try {
+    const session = await getServerSession();
+    if (!session) {
+      return NextResponse.json({
+        success: false,
+        error: GENERAL_MESSAGES.UNAUTHORIZED,
+      });
+    }
+
     const body = await request.json();
     const { paragraph } = body;
 

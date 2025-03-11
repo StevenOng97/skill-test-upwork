@@ -6,5 +6,10 @@ export const AUTH_MESSAGES = {
 
 export const GENERAL_MESSAGES = {
   INTERNAL_SERVER_ERROR: "Internal Server Error",
+  UNAUTHORIZED: "Unauthorized",
 };
 
+export const API_ENDPOINTS = {
+  CHECK_GRAMMAR: "/api/check-grammar",
+  REGISTER: "/api/register",
+};

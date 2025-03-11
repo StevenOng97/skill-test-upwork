@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-
+import { API_ENDPOINTS } from "@/app/constants";
 export default function Dashboard() {
   const [paragraph, setParagraph] = useState("");
   const [paragraphError, setParagraphError] = useState(null);
@@ -18,7 +18,7 @@ export default function Dashboard() {
     setParagraphError(null);
 
     try {
-      const response = await fetch("/api/check-grammar", {
+      const response = await fetch(API_ENDPOINTS.CHECK_GRAMMAR, {
         method: "POST",
         body: JSON.stringify({ paragraph }),
       });

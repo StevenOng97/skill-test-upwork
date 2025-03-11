@@ -3,7 +3,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { GENERAL_MESSAGES } from "../constants";
+import { API_ENDPOINTS, GENERAL_MESSAGES } from "@/app/constants";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
@@ -48,7 +48,7 @@ export default function SignUp() {
     resetStates();
 
     try {
-      const regsiterResponse = await fetch("/api/register", {
+      const regsiterResponse = await fetch(API_ENDPOINTS.REGISTER, {
         method: "POST",
         body: JSON.stringify({ email, password }),
       });
