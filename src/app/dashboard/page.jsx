@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { API_ENDPOINTS } from "@/app/constants";
+import { API_ENDPOINTS, GENERAL_MESSAGES } from "@/app/constants";
 export default function Dashboard() {
   const [paragraph, setParagraph] = useState("");
   const [paragraphError, setParagraphError] = useState(null);
@@ -23,8 +23,9 @@ export default function Dashboard() {
         body: JSON.stringify({ paragraph }),
       });
       const data = await response.json();
+      console.log("data:", data);
       if (data.error) {
-        setParagraphError(data.error);
+        setParagraphError(data.error?.error?.message || GENERAL_MESSAGES.INTERNAL_SERVER_ERROR);
       } else {
         setResult(data);
       }
