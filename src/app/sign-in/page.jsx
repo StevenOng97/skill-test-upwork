@@ -2,8 +2,10 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function SignIn() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(null);
   const [password, setPassword] = useState("");
@@ -48,8 +50,11 @@ export default function SignIn() {
       const result = await signIn("credentials", {
         email,
         password,
-        callbackUrl: "/dashboard",
+        redirect: false,
       });
+      if (result.ok) {
+        router.push("/dashboard");
+      }
       if (result?.error) {
         setError(result.error);
       }
