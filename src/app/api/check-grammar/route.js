@@ -10,7 +10,7 @@ export async function POST(request) {
       return NextResponse.json({
         success: false,
         error: GENERAL_MESSAGES.UNAUTHORIZED,
-      });
+      }, { status: 401 });
     }
 
     const body = await request.json();
@@ -18,10 +18,10 @@ export async function POST(request) {
 
     try {
       const systemPrompt = {
-          role: "system",
-          content: `You are a grammar checker. Your task is to verify grammatical errors in the provided paragraph. Figure the incorrect words`,
-        };
-    
+        role: "system",
+        content: `You are a grammar checker. Your task is to verify grammatical errors in the provided paragraph. Figure the incorrect words`,
+      };
+
       const userPrompt = {
         role: "user",
         content: `Check the grammar in the paragraph: "${paragraph}"
@@ -40,28 +40,29 @@ export async function POST(request) {
       });
 
       const result = JSON.parse(response.choices[0].message.content);
-      
+
       // Create HTML with errors highlighted in bold red
 
       let htmlText = paragraph;
 
       result.incorrect_words.forEach((word) => {
-        htmlText = htmlText.replace(word, `<span class="text-red-500 font-bold">${word}</span>`);
+        htmlText = htmlText.replace(
+          word,
+          `<span class="text-red-500 font-bold">${word}</span>`
+        );
       });
 
       return NextResponse.json({
         success: true,
         htmlText,
-      });
+      }, { status: 200 });
     } catch (error) {
-      console.error("Grammar check error:", error);
       return NextResponse.json({
         success: false,
         error: error || GENERAL_MESSAGES.INTERNAL_SERVER_ERROR,
-      });
+      }, { status: 500 });
     }
   } catch (error) {
-    console.error("Grammar check error:", error);
     return NextResponse.json(
       { error: error || GENERAL_MESSAGES.INTERNAL_SERVER_ERROR },
       { status: 500 }

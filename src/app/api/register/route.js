@@ -8,9 +8,15 @@ export async function POST(request) {
     const body = await request.json();
     const { email, password } = body;
 
+    if (!email || !password) {
+      return NextResponse.json(
+        { error: AUTH_MESSAGES.MISSING_FIELDS },
+        { status: 400 }
+      );
+    }
+
     const existingUser = await prisma.user.findUnique({
-      where: { email },
-      include: { accounts: true },
+      where: { email }
     });
 
     if (existingUser) {
@@ -33,7 +39,6 @@ export async function POST(request) {
       { status: 201 }
     );
   } catch (error) {
-    console.error("Registration error:", error);
     return NextResponse.json(
       { error: error || GENERAL_MESSAGES.INTERNAL_SERVER_ERROR },
       { status: 500 }

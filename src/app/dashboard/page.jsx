@@ -23,7 +23,6 @@ export default function Dashboard() {
         body: JSON.stringify({ paragraph }),
       });
       const data = await response.json();
-      console.log("data:", data);
       if (data.error) {
         setParagraphError(data.error?.error?.message || GENERAL_MESSAGES.INTERNAL_SERVER_ERROR);
       } else {
@@ -38,7 +37,7 @@ export default function Dashboard() {
 
   return (
     <section className="bg-gray-50">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
         <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-4xl xl:p-0 mb-4 min-h-[170px]">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-2xl font-bold">Output</h1>
