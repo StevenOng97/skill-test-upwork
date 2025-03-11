@@ -1,4 +1,17 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+WriteRight is an AI-powered grammar checker built with [Next.js](https://nextjs.org) and [OpenAI](https://openai.com).
+
+
+## Tech Stack
+
+- Next.js
+- OpenAI
+- Tailwind CSS
+- NextAuth (Authentication)
+- Prisma ORM (ORM for interacting with the database)
+- Supabase (Database)
+- API Routes (Handling API requests)
+- Jest (Unit Testing)
+- Redoc (API Documentation)
 
 ## Getting Started
 
